@@ -1,7 +1,9 @@
 import logging, requests
-from os import makedirs, getcwd, path
+from os import makedirs, getcwd, path, getenv
+from dotenv import load_dotenv
 
 makedirs("files", exist_ok=True)
+load_dotenv()
 
 # Formatter
 log_formatter = """***[%(levelname)s]***
@@ -13,7 +15,7 @@ log_formatter = """***[%(levelname)s]***
 
 # Custom handler
 class CustomHandler(logging.Handler):
-    WEBHOOK_DISCORD_URL = ""
+    WEBHOOK_DISCORD_URL = getenv("WEBHOOK_DISCORD_URL")
 
     def emit(self, record):
         log_entry = self.format(record)
